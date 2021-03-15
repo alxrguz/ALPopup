@@ -11,9 +11,14 @@ open class ALPopupController: UIViewController {
     // MARK:  Open Proporties
     
     /**
-        Is CloseButton show on controller
+     Is CloseButton show on controller
      */
     public var isEnableCloseButton = true { didSet { closeButton.isHidden = !isEnableCloseButton } }
+    
+    /**
+     Is CloseButton show on controller
+     */
+    public var dismissByTapAround = true
     
     /**
      Whether swipe to dismiss should be allowed. Defaults to true.
@@ -41,7 +46,7 @@ open class ALPopupController: UIViewController {
     }
     
     // MARK:  Private Proporties
-
+    
     private var pan: UIPanGestureRecognizer!
     
     // MARK: - Life cycle
@@ -118,6 +123,9 @@ extension ALPopupController {
         pan = UIPanGestureRecognizer(target: self, action: #selector(swipeHandler(_:)))
         pan.cancelsTouchesInView = false
         contentView.addGestureRecognizer(pan)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAround))
+        backgroundView.addGestureRecognizer(tap)
     }
 }
 
@@ -160,6 +168,11 @@ extension ALPopupController: UIGestureRecognizerDelegate {
 
 // MARK: - Handlers
 private extension ALPopupController {
+    @objc func tapAround() {
+        guard dismissByTapAround else { return }
+        closeController()
+    }
+    
     @objc func swipeHandler(_ gestureRecognizer : UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began: gestureRecognizer.setTranslation(.zero, in: contentView)
