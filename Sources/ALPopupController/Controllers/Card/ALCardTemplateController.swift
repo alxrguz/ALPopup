@@ -114,7 +114,10 @@ private extension ALCardTemplateController {
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4)
         imageWidthConstraint.priority = .init(999)
         imageWidthConstraint.isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        let imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+        imageHeightConstraint.priority = .init(999)
+        imageHeightConstraint.isActive = true
         imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
