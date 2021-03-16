@@ -130,8 +130,14 @@ private extension ALCardTemplateController {
         imageTrailing.isActive = true
         buttonStackView.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth).isActive = true
         buttonStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        buttonStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-//
+        
+        let bottomSafeAreaConstraint = buttonStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        bottomSafeAreaConstraint.isActive = true
+        bottomSafeAreaConstraint.priority = .init(990)
+        
+        let bottomConstraint = buttonStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -17)
+        bottomConstraint.isActive = true
+
         secondaryButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
