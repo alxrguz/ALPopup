@@ -1,7 +1,6 @@
-
 import UIKit
 
-public final class ALCardTemplateController: ALCardController {
+public final class ALPopupTemplateController: ALPopupController {
     
     // MARK: - UI Elements
     
@@ -26,7 +25,7 @@ public final class ALCardTemplateController: ALCardController {
 
 // MARK: - Layout Setup
 
-private extension ALCardTemplateController {
+private extension ALPopupTemplateController {
     func setupConstraints() {
         contentView.addSubview(tempateView)
         

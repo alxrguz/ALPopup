@@ -1,6 +1,6 @@
 import UIKit
 
-open class ALPopupController: UIViewController {
+open class ALBaseOverlayController: UIViewController {
     
     // MARK:  UI Elements
     
@@ -11,12 +11,12 @@ open class ALPopupController: UIViewController {
     // MARK:  Open Proporties
     
     /**
-     Is CloseButton show on controller
+     Is Close Button show on controller
      */
     public var isEnableCloseButton = true { didSet { closeButton.isHidden = !isEnableCloseButton } }
     
     /**
-     Is CloseButton show on controller
+     Should the controller be closed by tap on the darkened area
      */
     public var dismissByTapAround = true
     
@@ -64,14 +64,23 @@ open class ALPopupController: UIViewController {
         return !isHomeIndicatorVisible
     }
     
+    // MARK: UIViewController
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
+        setupConstraints()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentAnimation()
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        closeButton.setImage(Source.Image.smallCloseButton, for: .normal)
+        contentView.bringSubviewToFront(closeButton)
     }
     
     // MARK: - Custom Present & Dissmiss
@@ -113,7 +122,7 @@ open class ALPopupController: UIViewController {
 }
 
 // MARK: - Actions
-extension ALPopupController {
+extension ALBaseOverlayController {
     @objc func closeController() {
         pop()
     }
@@ -130,7 +139,7 @@ extension ALPopupController {
 }
 
 // MARK: - UIGestureRecognizerDelegate
-extension ALPopupController: UIGestureRecognizerDelegate {
+extension ALBaseOverlayController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let otherPan = otherGestureRecognizer as? UIPanGestureRecognizer else { return true }
         
@@ -167,7 +176,7 @@ extension ALPopupController: UIGestureRecognizerDelegate {
 }
 
 // MARK: - Handlers
-private extension ALPopupController {
+private extension ALBaseOverlayController {
     @objc func tapAround() {
         guard dismissByTapAround else { return }
         closeController()
@@ -239,5 +248,19 @@ private extension ALPopupController {
         }
         
         verticalTranslation < 0 ? swipeTop() : swipeDown()
+    }
+}
+
+// MARK: - Layout Setup
+
+private extension ALBaseOverlayController {
+    func setupConstraints() {
+        contentView.addSubview(closeButton)
+        
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12).isActive = true
     }
 }
