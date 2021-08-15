@@ -19,6 +19,11 @@ final class InheritedFromPopupController: ALPopupController {
         setupView()
         setupConstraints()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        controllerView.setRandomProgress()
+    }
 }
 
 // MARK: - Layout Setup
