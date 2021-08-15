@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "ALPopupController",
+    name: "ALPopup",
     platforms: [ .iOS(.v11)],
     products: [
-        .library(name: "ALPopupController", targets: ["ALPopupController"]),
+        .library(name: "ALPopup", targets: ["ALPopup"]),
     ],
     targets: [
-        .target(name: "ALPopupController", dependencies: []),
+        .target(name: "ALPopup", dependencies: []),
     ]
 )

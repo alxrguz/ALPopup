@@ -58,18 +58,18 @@ open class ALBaseOverlayController: UIViewController {
         }
     }
     
-    /**
-     If you are placing scroll views (UITableView, UICollectionView, etc.) on a controller, then set this property to true to leave it possible to close with a swipe
-     */
-    public var isContainsScrollView = false {
-        didSet {
-            pan.delegate = isContainsScrollView == true ? self : nil
-        }
-    }
+//    /**
+//     If you are placing scroll views (UITableView, UICollectionView, etc.) on a controller, then set this property to true to leave it possible to close with a swipe
+//     */
+//    public var isContainsScrollView = false {
+//        didSet {
+//            pan.delegate = isContainsScrollView == true ? self : nil
+//        }
+//    }
     
     // MARK:  Private Proporties
     
-    private var pan: UIPanGestureRecognizer!
+    private lazy var pan = UIPanGestureRecognizer(target: self, action: #selector(swipeHandler(_:)))
     
     // MARK: - Life cycle
     
@@ -152,7 +152,6 @@ extension ALBaseOverlayController {
     
     private func setupActions() {
         closeButton.addTarget(self, action: #selector(closeController), for: .touchUpInside)
-        pan = UIPanGestureRecognizer(target: self, action: #selector(swipeHandler(_:)))
         pan.cancelsTouchesInView = false
         contentView.addGestureRecognizer(pan)
         
@@ -166,7 +165,7 @@ extension ALBaseOverlayController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let otherPan = otherGestureRecognizer as? UIPanGestureRecognizer else { return true }
         
-        guard isContainsScrollView == true else { return false }
+//        guard isContainsScrollView == true else { return false }
         
         let velosity = otherPan.velocity(in: contentView)
         return abs(velosity.y) > abs(velosity.x)
@@ -269,7 +268,6 @@ private extension ALBaseOverlayController {
             backgroundView.alpha = 1 - (translation / maxSwipeHeight)
             contentView.transform = .init(translationX: 0, y: translation)
         }
-        
         verticalTranslation < 0 ? swipeTop() : swipeDown()
     }
 }

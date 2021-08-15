@@ -22,15 +22,24 @@
 
 import UIKit
 
-open class ALCardController: ALBaseOverlayController {
+open class ALPopupController: ALBaseOverlayController {
     
     // MARK: - Private Proporties
     
-    private var bottomConstraint: NSLayoutConstraint?
-    private var centerConstraint: NSLayoutConstraint?
     private var isPresented = false
     
-    // MARK: UIViewController
+    // MARK: - Life cycle
+    
+    public override init() {
+        super.init()
+        allowsSwipeInteraction = false
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UIViewController
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,34 +49,34 @@ open class ALCardController: ALBaseOverlayController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if view.frame.width >= 500 {
-            bottomConstraint?.isActive = false
-            centerConstraint?.isActive = true
-            
-        } else {
-            bottomConstraint?.isActive = true
-            centerConstraint?.isActive = false
-        }
         updateContentCorners()
     }
     
     // MARK: - ALBaseOverlayController
- 
+
     open override func presentAnimation() {
         guard isPresented == false else { return }
         isPresented = true
-        let height = contentView.frame.maxY
-        contentView.transform = .init(translationX: 0, y: height)
+        contentView.transform = .init(translationX: 0, y: 50)
         backgroundView.alpha = 0
-        contentView.alpha = 1
+        contentView.alpha = 0
         resetAnimation()
     }
     
     open override func dismissAnimation(competion: @escaping () -> Void) {
-        let height = contentView.frame.maxY
-        ALAnimate.spring(time: 0.6) {
+        let translationY: CGFloat = {
+            let currentTranlation = contentView.transform.ty
+            if currentTranlation > 0 {
+                return currentTranlation + currentTranlation * 0.7
+            } else {
+                return 50
+            }
+        }()
+        
+        ALAnimate.spring(time: 0.4) {
             self.backgroundView.alpha = 0
-            self.contentView.transform = .init(translationX: 0, y: height)
+            self.contentView.alpha = 0
+            self.contentView.transform = .init(translationX: 0, y: translationY)
         } completion: {
             competion()
         }
@@ -78,27 +87,28 @@ open class ALCardController: ALBaseOverlayController {
             self.backgroundView.alpha = 1
         }
         
-        ALAnimate.spring(time: 0.5, damping: 0.85, velocity: 0.8) {
+        ALAnimate.spring(time: 0.4, damping: 0.85, velocity: 0.8) {
             self.contentView.transform = .identity
+            self.contentView.alpha = 1
         }
     }
 }
 
 // MARK: - Layout Setup
-
-private extension ALCardController {
+private extension ALPopupController {
     func setupView() {
         backgroundView.alpha = 0
         backgroundView.backgroundColor = UIColor.black.alpha(0.6)
         
         contentView.alpha = 0
+        contentView.superellipticRounding = true
     }
     
     func setupConstraints() {
         view.addSubview(backgroundView)
         view.addSubview(contentView)
         
-        let cardOffset: CGFloat = 5
+        let cardOffset: CGFloat = 16
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -116,24 +126,15 @@ private extension ALCardController {
         trailingContent.isActive = true
         contentView.widthAnchor.constraint(lessThanOrEqualToConstant: 485).isActive = true
         contentView.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor).isActive = true
-        bottomConstraint = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -cardOffset)
-        centerConstraint = contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        bottomConstraint?.priority = .defaultLow
+        contentView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+        contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     func updateContentCorners() {
-        var isRoundDisplay: Bool {
-            view.safeAreaInsets.bottom > 0
-        }
-        
-        var isBottomPosition: Bool {
-            bottomConstraint?.isActive == true
-        }
-        
         var isIpad: Bool {
             UIDevice.current.userInterfaceIdiom == .pad
         }
         
-        contentView.cornerRadius =  isIpad ? 12 : (isRoundDisplay ? 36 : 18)
+        contentView.cornerRadius = 24
     }
 }
