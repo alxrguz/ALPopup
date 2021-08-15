@@ -1,9 +1,5 @@
 # ALPopupController
 
-
-
-<img align="left" src="https://github.com/alxrguz/ALProgressView/blob/main/Assets/PreviewBanner.png" width="300"/>
-
 ### About
 
 **ALPopupController** - library for displaying pop-up windows with a native style (AirPods, Wi-Fi password sharing etc).
