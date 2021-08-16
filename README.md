@@ -2,20 +2,11 @@
 
 ### About
 
-**ALPopup** - library for displaying pop-up windows with a native style (AirPods, Wi-Fi password sharing etc).
-
-The library supports 2 types of popup windows:
-
-- ALCardController - card window located at the bottom of the screen
-- ALPopupController - regular popup window located in the center of the screen
-
-All controllers have ready-made templates for fast information display, smooth animations, iPad and Mac support, gesture closing, and much more customization. Can also be used with UINavigationController.  You can play around with the example app.
+<img align="left" src="Assets/about.png"/>
 
 <br/>
 
 If you liked this library, please do not forget to put a `★ star`, it will help me in its development.
-
-<br/>
 
 <br/>
 
@@ -96,7 +87,7 @@ cardController.pop(completion: (() -> Void))
 
 **There are 3 options for configure the controller:**
 
-● As a template
+· As a template
 
 Create controller with `.init(template: ALTemplateSettings)`
 
@@ -115,7 +106,7 @@ All template fields are optional, if you do not specify some property, then it s
 
 
 
-● Using your controller
+· Using your controller
 
 Create controller with `.init(controller: UIViewController)`
 
@@ -129,7 +120,7 @@ In order for the size to be calculated correctly, you need your controller to be
 
 
 
-● Inherit from controller
+· Inherit from controller
 
 ```swift
 class InheritedFromCardController: ALCardController { }
@@ -243,5 +234,5 @@ popupVC.tempateView.primaryButton.applyDefaultAppearance(with: .init(content: .s
 
 ## License
 
-**ALPopup** is under MIT license. See the [LICENSE](https://github.com/alxrguz/ALPopup/blob/main/LICENSE) file for more info.
+**ALPopup** is under MIT license. See the [LICENSE](https://github.com/alxrguz/ALPopup/blob/master/LICENSE) file for more info.
 
