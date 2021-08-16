@@ -1,14 +1,6 @@
 # ALPopup
 
-### About
-
 <img align="left" src="Assets/about.png"/>
-
-<br/>
-
-If you liked this library, please do not forget to put a `★ star`, it will help me in its development.
-
-<br/>
 
 ## Navigation
 
