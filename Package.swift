@@ -10,6 +10,11 @@ let package = Package(
         .library(name: "ALPopup", targets: ["ALPopup"]),
     ],
     targets: [
-        .target(name: "ALPopup", dependencies: []),
+        .target(
+            name: "ALPopup",
+            dependencies: [],
+            swiftSettings: [.define("ALPOPUP_SPM")]
+        ),
     ]
+    
 )
