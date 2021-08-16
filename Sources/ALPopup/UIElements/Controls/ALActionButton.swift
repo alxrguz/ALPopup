@@ -23,10 +23,10 @@
 import UIKit
 
 open class ALActionButton: ALBasicButton {
-    var roundCorners: CGFloat = 14 { didSet { layoutSubviews() } }
+    public var roundCorners: CGFloat = 14 { didSet { layoutSubviews() } }
     private lazy var indicatorView = UIActivityIndicatorView()
     
-    var isLoading = false {
+    public var isLoading = false {
         didSet {
             loading()
         }

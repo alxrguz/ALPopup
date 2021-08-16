@@ -101,7 +101,6 @@ private extension ALPopupController {
         backgroundView.backgroundColor = UIColor.black.alpha(0.6)
         
         contentView.alpha = 0
-        contentView.superellipticRounding = true
     }
     
     func setupConstraints() {

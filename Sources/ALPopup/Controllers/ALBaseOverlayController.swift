@@ -43,7 +43,7 @@ open class ALBaseOverlayController: UIViewController {
     public var dismissByTapAround = true
     
     /**
-     Whether swipe to dismiss should be allowed. Defaults to true.
+     Whether swipe to dismiss should be allowed. Defaults is true.
      
      If you set this to false, the pan gesture will continue to be recognized, but with noticeable resistance and the user won't be able to close the controller with a swipe.
      */
@@ -55,6 +55,13 @@ open class ALBaseOverlayController: UIViewController {
     public var isHomeIndicatorVisible = true {
         didSet {
             setNeedsUpdateOfHomeIndicatorAutoHidden()
+        }
+    }
+    
+    /// Rounding corners in superellipse for `contentView`. Gives nicer and more correct rounding, but does not work well with frame animations. Default is `true`
+    public var superellipticRounding = true {
+        didSet {
+            contentView.superellipticRounding = superellipticRounding
         }
     }
     
