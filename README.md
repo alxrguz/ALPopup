@@ -2,6 +2,8 @@
 
 <img align="left" src="Assets/about.png"/>
 
+<br/>
+
 ## Navigation
 
 - [Requirements](#requirements)
