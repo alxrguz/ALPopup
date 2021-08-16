@@ -22,6 +22,8 @@
 		BB3C5BD326C9C5A0000C7B24 /* ContentViewForInheritedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BD226C9C5A0000C7B24 /* ContentViewForInheritedController.swift */; };
 		BB3C5BD626C9CBAF000C7B24 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BD526C9CBAF000C7B24 /* SettingsViewController.swift */; };
 		BB3C5BD926C9CDCD000C7B24 /* ALPopup in Frameworks */ = {isa = PBXBuildFile; productRef = BB3C5BD826C9CDCD000C7B24 /* ALPopup */; };
+		BB3C5BDC26CA5BE0000C7B24 /* HorizontallScrollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BDB26CA5BE0000C7B24 /* HorizontallScrollController.swift */; };
+		BB3C5BDE26CA62E1000C7B24 /* MixedScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BDD26CA62E1000C7B24 /* MixedScrollViewController.swift */; };
 		BBC5A33B262824B60000ADDA /* ALDevKit in Frameworks */ = {isa = PBXBuildFile; productRef = BBC5A33A262824B60000ADDA /* ALDevKit */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		BB3C5BD226C9C5A0000C7B24 /* ContentViewForInheritedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewForInheritedController.swift; sourceTree = "<group>"; };
 		BB3C5BD526C9CBAF000C7B24 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BB3C5BD726C9CDBF000C7B24 /* ALPopup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ALPopup; path = ..; sourceTree = "<group>"; };
+		BB3C5BDB26CA5BE0000C7B24 /* HorizontallScrollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallScrollController.swift; sourceTree = "<group>"; };
+		BB3C5BDD26CA62E1000C7B24 /* MixedScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedScrollViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 				BB3C5BBE26C9B7D7000C7B24 /* BaseController */,
 				BB3C5BC426C9BEA1000C7B24 /* ForNavigationController */,
 				BB3C5BCC26C9C530000C7B24 /* InheritedController */,
+				BB3C5BDA26CA5BC1000C7B24 /* ScrollControllers */,
 				BB3C5BD426C9CB90000C7B24 /* Settings */,
 				BB395A0D24EA727000B965F5 /* Launch */,
 			);
@@ -182,6 +187,15 @@
 				BB3C5BD526C9CBAF000C7B24 /* SettingsViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		BB3C5BDA26CA5BC1000C7B24 /* ScrollControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BB3C5BDB26CA5BE0000C7B24 /* HorizontallScrollController.swift */,
+				BB3C5BDD26CA62E1000C7B24 /* MixedScrollViewController.swift */,
+			);
+			path = ScrollControllers;
 			sourceTree = "<group>";
 		};
 		BB9AA92E26AAFB8A0024E2C2 /* Frameworks */ = {
@@ -278,10 +292,12 @@
 				BB3C5BD626C9CBAF000C7B24 /* SettingsViewController.swift in Sources */,
 				BB3C5BCE26C9C561000C7B24 /* InheritedFromCardController.swift in Sources */,
 				BB3959F724EA71EE00B965F5 /* AppDelegate.swift in Sources */,
+				BB3C5BDC26CA5BE0000C7B24 /* HorizontallScrollController.swift in Sources */,
 				BB3C5BC826C9BEDA000C7B24 /* DetailViewController.swift in Sources */,
 				BB3C5BC626C9BECF000C7B24 /* TableViewController.swift in Sources */,
 				BB3C5BD026C9C56C000C7B24 /* InheritedFromPopupController.swift.swift in Sources */,
 				BB3C5BBB26C9A0DB000C7B24 /* ALFakeNavigationView.swift in Sources */,
+				BB3C5BDE26CA62E1000C7B24 /* MixedScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

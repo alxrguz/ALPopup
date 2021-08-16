@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
     private lazy var tableView = ALFakeTableView()
     
     // MARK: - Private Proporties
+    
     private var isEnableCloseButton = true
     private var dismissByTapAround = true
     private var allowsSwipeInteraction = true
@@ -48,11 +49,6 @@ private extension HomeViewController {
     }
 }
 
-// MARK: - Open Methods
-
-extension HomeViewController {
-    
-}
 
 // MARK: - Private Methods
 
@@ -176,6 +172,32 @@ private extension HomeViewController {
         vc.push(from: self)
     }
     
+    func showHorizontalScrrolledController() {
+        let vc: ALBaseOverlayController
+        
+        switch controllerStyle {
+            case .popup:
+                vc = ALPopup.popup(controller: HorizontallScrollController())
+            case .card:
+                vc = ALPopup.card(controller: HorizontallScrollController())
+        }
+        configureALPopup(vc)
+        vc.push(from: self)
+    }
+    
+    func showMixedScrrolledController() {
+        let vc: ALBaseOverlayController
+        
+        switch controllerStyle {
+            case .popup:
+                vc = ALPopup.popup(controller: MixedScrollViewController())
+            case .card:
+                vc = ALPopup.card(controller: MixedScrollViewController())
+        }
+        configureALPopup(vc)
+        vc.push(from: self)
+    }
+    
     @objc func presentSettings() {
         let vc = SettingsViewController(
             isEnableCloseButton: isEnableCloseButton,
@@ -259,7 +281,7 @@ private extension HomeViewController {
             $0.addCell(cell)
         }
         
-        let InheritedControllerSection = ALFakeTableSection().do {
+        let inheritedControllerSection = ALFakeTableSection().do {
             $0.title = "Inherited Controller".uppercased()
             $0.footer = "In this example, you yourself inherit from the desired controller and manage it."
             let cell = ALFakeCell().do {
@@ -270,10 +292,27 @@ private extension HomeViewController {
             $0.addCell(cell)
         }
         
+        let scrolledControllerSection = ALFakeTableSection().do {
+            $0.title = "Scrolled Controller".uppercased()
+            $0.footer = "This section is only for performing tests with scrollViews"
+            let cell = ALFakeCell().do {
+                $0.titleLabel.text = "Show Horizontal Scroll"
+                $0.titleLabel.textColor = .systemBlue
+                $0.tapped = { [weak self] _ in self?.showHorizontalScrrolledController() }
+            }
+            
+            let cell1 = ALFakeCell().do {
+                $0.titleLabel.text = "Show Mexid Scroll"
+                $0.titleLabel.textColor = .systemBlue
+                $0.tapped = { [weak self] _ in self?.showMixedScrrolledController() }
+            }
+            $0.addCells([cell, cell1])
+        }
+        
         tableView.do {
             $0.scrollView.contentInset = .init(top: 75, left: 0, bottom: 0, right: 0)
             $0.sectionsStack.spacing = 35
-            $0.addSections([templateSetction, viewControllerSection, navigationControllerSection, InheritedControllerSection])
+            $0.addSections([templateSetction, viewControllerSection, navigationControllerSection, inheritedControllerSection])
         }
     }
     

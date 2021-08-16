@@ -58,18 +58,14 @@ open class ALBaseOverlayController: UIViewController {
         }
     }
     
-//    /**
-//     If you are placing scroll views (UITableView, UICollectionView, etc.) on a controller, then set this property to true to leave it possible to close with a swipe
-//     */
-//    public var isContainsScrollView = false {
-//        didSet {
-//            pan.delegate = isContainsScrollView == true ? self : nil
-//        }
-//    }
-    
     // MARK:  Private Proporties
-    
-    private lazy var pan = UIPanGestureRecognizer(target: self, action: #selector(swipeHandler(_:)))
+
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(swipeHandler(_:)))
+        gesture.delegate = self
+        gesture.cancelsTouchesInView = false
+        return gesture
+    }()
     
     // MARK: - Life cycle
     
@@ -100,6 +96,9 @@ open class ALBaseOverlayController: UIViewController {
         super.viewDidLayoutSubviews()
         closeButton.setImage(Source.Image.smallCloseButton, for: .normal)
         contentView.bringSubviewToFront(closeButton)
+        contentView.subviews(ofType: UIScrollView.self).forEach {
+            $0.panGestureRecognizer.require(toFail: panGesture)
+        }
     }
     
     open override var prefersHomeIndicatorAutoHidden: Bool {
@@ -152,8 +151,7 @@ extension ALBaseOverlayController {
     
     private func setupActions() {
         closeButton.addTarget(self, action: #selector(closeController), for: .touchUpInside)
-        pan.cancelsTouchesInView = false
-        contentView.addGestureRecognizer(pan)
+        contentView.addGestureRecognizer(panGesture)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAround))
         backgroundView.addGestureRecognizer(tap)
@@ -163,35 +161,21 @@ extension ALBaseOverlayController {
 // MARK: - UIGestureRecognizerDelegate
 extension ALBaseOverlayController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let otherPan = otherGestureRecognizer as? UIPanGestureRecognizer else { return true }
-        
-//        guard isContainsScrollView == true else { return false }
-        
-        let velosity = otherPan.velocity(in: contentView)
-        return abs(velosity.y) > abs(velosity.x)
+        return true
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        var scrollViews = [UIScrollView]()
+        guard let scrollView = contentView.subviews(ofType: UIScrollView.self).first else { return true }
         
-        for view in contentView.subviews {
-            if let scrollView = view as? UIScrollView {
-                scrollViews.append(scrollView)
-            }
-        }
-        guard let scrollView = scrollViews.first else { return true }
-        
-        let touchPoint = pan.location(in: scrollView)
+        let touchPoint = panGesture.location(in: scrollView)
         guard touchPoint.x >= 0 && touchPoint.y >= 0 else { return true }
-        
-        let translate = pan.translation(in: contentView).y
+
+        let translate = panGesture.translation(in: contentView).y
         guard translate > 0 else { return false }
-        
-        if -scrollView.contentInset.top == scrollView.contentOffset.y {
-            scrollView.isScrollEnabled = false
+
+        if -scrollView.contentInset.top >= scrollView.contentOffset.y {
             return true
         } else {
-            scrollView.isScrollEnabled = true
             return false
         }
     }
@@ -227,9 +211,9 @@ private extension ALBaseOverlayController {
             return
         }
         let maxSwipeHeight = contentView.frame.height
-        let velocity = pan.velocity(in: contentView)
+        let velocity = panGesture.velocity(in: contentView)
         if velocity.y > 1000 { pop(); return }
-        let verticalTranslation = pan.translation(in: contentView).y
+        let verticalTranslation = panGesture.translation(in: contentView).y
         if abs(verticalTranslation) > (maxSwipeHeight / 2) && verticalTranslation > 0 {
             pop()
         } else {
@@ -239,7 +223,7 @@ private extension ALBaseOverlayController {
     
     func swipeChanged() {
         let maxSwipeHeight = contentView.frame.height
-        let verticalTranslation = pan.translation(in: contentView).y
+        let verticalTranslation = panGesture.translation(in: contentView).y
         
         guard allowsSwipeInteraction else {
             contentView.transform = .init(translationX: 0, y: verticalTranslation * 0.08)
