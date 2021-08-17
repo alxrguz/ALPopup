@@ -10,6 +10,6 @@ let package = Package(
         .library(name: "ALPopup", targets: ["ALPopup"]),
     ],
     targets: [
-        .target(name: "ALPopup", dependencies: []),
+        .target(name: "ALPopup"),
     ]
 )
