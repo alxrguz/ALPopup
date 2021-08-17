@@ -72,7 +72,7 @@ cardController.pop(completion: (() -> Void))
 
 **There are 3 options for configure the controller:**
 
-• As a template
+1) As a template
 
 Create controller with `.init(template: ALTemplateSettings)`
 
@@ -89,9 +89,7 @@ popupVC.push(from: self)
 
 All template fields are optional, if you do not specify some property, then it simply will not be shown.
 
-  
-
-• Using your controller
+2. Using your controller
 
 Create controller with `.init(controller: UIViewController)`
 
@@ -103,9 +101,7 @@ cardVC.push(from: self)
 
 In order for the size to be calculated correctly, you need your controller to be correctly laid out (If you have difficulty - see **Example App** `BaseViewController`). 
 
-  
-
-• Inherit from controller
+3. Inherit from controller
 
 ```swift
 class InheritedFromCardController: ALCardController { }
@@ -190,16 +186,12 @@ popupVC.tempateView.secondaryButton
 vc.push(from: self)
 ```
 
-  
-
 Callbacks are prepared for handling button presses
 
 ```swift
 popupVC.tempateView.primaryButtonAction = { [weak self] in }
 popupVC.tempateView.secondaryButtonAction = { [weak self] in }
 ```
-
-  
 
 By the way, the template uses extended `ALActionButton` buttons, so it is more convenient to change their color using:
 
