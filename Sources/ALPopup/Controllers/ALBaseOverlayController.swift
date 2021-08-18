@@ -172,6 +172,9 @@ extension ALBaseOverlayController: UIGestureRecognizerDelegate {
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let velosity = panGesture.velocity(in: contentView)
+        guard abs(velosity.y) > abs(velosity.x) else { return false }
+        
         guard let scrollView = contentView.subviews(ofType: UIScrollView.self).first else { return true }
         
         let touchPoint = panGesture.location(in: scrollView)
