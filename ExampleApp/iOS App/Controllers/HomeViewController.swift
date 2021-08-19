@@ -93,10 +93,10 @@ private extension HomeViewController {
         switch controllerStyle {
             case .popup:
                 let popupVC = ALPopup.popup(template: .init(
-                                        title: "Hi",
-                                        subtitle: "This is popup template controller",
-                                        image: UIImage(systemName: "airpodspro"),
-                                        privaryButtonTitle: "Connect",
+                                        title: "Wi-Fi Password",
+                                        subtitle: "Share the Wi-Fi password?\n(Template controller Example)",
+                                        image: UIImage(systemName: "wifi"),
+                                        privaryButtonTitle: "Share Password",
                                         secondaryButtonTitle: "Not Now")
                 )
                 
@@ -115,11 +115,11 @@ private extension HomeViewController {
                 vc = popupVC
             case .card:
                 let cardVC = ALPopup.card(template: .init(
-                                        title: "Hi",
-                                        subtitle: "This is card template controller",
-                                        image: UIImage(systemName: "airpodspro"),
-                                        privaryButtonTitle: "Connect",
-                                        secondaryButtonTitle: nil)
+                                            title: "Wi-Fi Password",
+                                            subtitle: "Do u want to share the Wi-Fi password?\n(Template controller Example)",
+                                            image: UIImage(systemName: "wifi"),
+                                            privaryButtonTitle: "Share Password",
+                                            secondaryButtonTitle: nil)
                 )
                 
                 cardVC.tempateView.do {
