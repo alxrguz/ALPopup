@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name = 'ALPopup'
-  s.version = '1.0.8'
+  s.version = '1.0.9'
   s.summary = 'Native card controller like AirPods or Wi-Fi password sharing'
   
   s.homepage = 'https://github.com/alxrguz/ALPopup'
