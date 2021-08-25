@@ -1,6 +1,6 @@
 # ALPopup
 
-<img align="left" src="Assets/about.png"/>
+<img align="left" src="https://github.com/alxrguz/ALPopup/blob/master/Assets/about.png"/>
 
   
 

@@ -24,6 +24,22 @@ import UIKit
 
 
 enum Source {
+    static var bundle: Bundle {
+        
+        // If installed via SPM, will be available bundle .module.
+        
+        #if ALPOPUP_SPM
+        return .module
+        #else
+        
+        // If installed via Cocoapods, should use bundle from podspec.
+        
+        let path = Bundle(for: SPConfetti.self).path(forResource: "ALPopup", ofType: "bundle") ?? ""
+        let bundle = Bundle(path: path) ?? Bundle.main
+        return bundle
+        #endif
+    }
+    
     enum Color {
         static var contentColor: UIColor {
             .init(light: .init(hex: "fff"), dark: .init(hex: "1C1C1E"))
@@ -48,7 +64,7 @@ enum Source {
     
     enum Image {
         static var smallCloseButton: UIImage? {
-            UIImage(named: "smallCloseButton", in: Bundle.module, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+            UIImage(named: "smallCloseButton", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
         }
     }
 }

@@ -16,6 +16,12 @@ let package = Package(
     targets: [
         .target(
             name: "ALPopup",
-            dependencies: [])
+            resources: [
+                .process("Resources")
+            ],
+            swiftSettings: [
+                .define("ALPOPUP_SPM")
+            ]
+        )
     ]
 )
