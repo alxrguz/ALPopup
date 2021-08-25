@@ -9,6 +9,7 @@
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [Swift Package Manager](#Swift-Package-Manager)
+  - [CocoaPods](#CocoaPods)
   - [Manually](#Manually)
 - [Usage](#usage)
   - [Quick Start](#Quick-Start)
@@ -36,6 +37,14 @@ To integrate **ALPopup** click `File -> Swift Package -> Add Package Dependency`
 
 ```ogdl
 https://github.com/alxrguz/ALPopup
+```
+
+#### CocoaPods
+
+**ALPopup** is available through [CocoaPods](https://cocoapods.org/pods/ALProgressView). To install it, simply add the following line to your Podfile:
+
+```ruby
+pod 'ALPopup'
 ```
 
 #### Manually
