@@ -22,10 +22,15 @@
 
 import UIKit
 
-public enum ALPopup {
+public class ALPopup {
+    
+    // MARK:  Private Proporties
+    
     private static var isPhone: Bool {
         UIDevice.current.userInterfaceIdiom == .phone
     }
+    
+    // MARK:  Open Methods
     
     /**
      Returns a controller that is presented as a card (AirPods style). On iPhone, it will appear at the bottom of the screen, and on iPad - centered.
@@ -150,5 +155,9 @@ public enum ALPopup {
         
         return vc
     }
+    
+    // MARK: - Life cycle
+    
+    private init() {}
 }
 
