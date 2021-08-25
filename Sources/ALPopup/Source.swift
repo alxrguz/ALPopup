@@ -34,7 +34,7 @@ enum Source {
         
         // If installed via Cocoapods, should use bundle from podspec.
         
-        let path = Bundle(for: SPConfetti.self).path(forResource: "ALPopup", ofType: "bundle") ?? ""
+        let path = Bundle(for: ALPopup.self).path(forResource: "ALPopup", ofType: "bundle") ?? ""
         let bundle = Bundle(path: path) ?? Bundle.main
         return bundle
         #endif
