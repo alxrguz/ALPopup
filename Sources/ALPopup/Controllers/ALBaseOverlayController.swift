@@ -232,7 +232,7 @@ private extension ALBaseOverlayController {
     }
     
     func swipeChanged() {
-        let maxSwipeHeight = contentView.frame.height
+        let maxSwipeHeight = contentView.frame.maxY
         let verticalTranslation = panGesture.translation(in: contentView).y
         
         guard allowsSwipeInteraction else {
