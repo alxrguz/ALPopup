@@ -21,10 +21,10 @@
 		BB3C5BD026C9C56C000C7B24 /* InheritedFromPopupController.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BCF26C9C56C000C7B24 /* InheritedFromPopupController.swift.swift */; };
 		BB3C5BD326C9C5A0000C7B24 /* ContentViewForInheritedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BD226C9C5A0000C7B24 /* ContentViewForInheritedController.swift */; };
 		BB3C5BD626C9CBAF000C7B24 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BD526C9CBAF000C7B24 /* SettingsViewController.swift */; };
-		BB3C5BD926C9CDCD000C7B24 /* ALPopup in Frameworks */ = {isa = PBXBuildFile; productRef = BB3C5BD826C9CDCD000C7B24 /* ALPopup */; };
 		BB3C5BDC26CA5BE0000C7B24 /* HorizontallScrollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BDB26CA5BE0000C7B24 /* HorizontallScrollController.swift */; };
 		BB3C5BDE26CA62E1000C7B24 /* MixedScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C5BDD26CA62E1000C7B24 /* MixedScrollViewController.swift */; };
 		BBC5A33B262824B60000ADDA /* ALDevKit in Frameworks */ = {isa = PBXBuildFile; productRef = BBC5A33A262824B60000ADDA /* ALDevKit */; };
+		BBDBFBF42705B44200EBD725 /* ALPopup in Frameworks */ = {isa = PBXBuildFile; productRef = BBDBFBF32705B44200EBD725 /* ALPopup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,9 +42,9 @@
 		BB3C5BCF26C9C56C000C7B24 /* InheritedFromPopupController.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritedFromPopupController.swift.swift; sourceTree = "<group>"; };
 		BB3C5BD226C9C5A0000C7B24 /* ContentViewForInheritedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewForInheritedController.swift; sourceTree = "<group>"; };
 		BB3C5BD526C9CBAF000C7B24 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		BB3C5BD726C9CDBF000C7B24 /* ALPopup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ALPopup; path = ..; sourceTree = "<group>"; };
 		BB3C5BDB26CA5BE0000C7B24 /* HorizontallScrollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallScrollController.swift; sourceTree = "<group>"; };
 		BB3C5BDD26CA62E1000C7B24 /* MixedScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedScrollViewController.swift; sourceTree = "<group>"; };
+		BB8E4EC1271814EF00D58888 /* ALPopup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ALPopup; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB3C5BD926C9CDCD000C7B24 /* ALPopup in Frameworks */,
+				BBDBFBF42705B44200EBD725 /* ALPopup in Frameworks */,
 				BB3C5BC126C9B821000C7B24 /* ALRadioButtons in Frameworks */,
 				BBC5A33B262824B60000ADDA /* ALDevKit in Frameworks */,
 				BB3C5BCB26C9C4DC000C7B24 /* ALProgressView in Frameworks */,
@@ -65,7 +65,7 @@
 		BB3959EA24EA71EE00B965F5 = {
 			isa = PBXGroup;
 			children = (
-				BB3C5BD726C9CDBF000C7B24 /* ALPopup */,
+				BB8E4EC0271814EF00D58888 /* Packages */,
 				BB3959F524EA71EE00B965F5 /* iOS App */,
 				BB3959F424EA71EE00B965F5 /* Products */,
 				BB9AA92E26AAFB8A0024E2C2 /* Frameworks */,
@@ -198,6 +198,14 @@
 			path = ScrollControllers;
 			sourceTree = "<group>";
 		};
+		BB8E4EC0271814EF00D58888 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				BB8E4EC1271814EF00D58888 /* ALPopup */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		BB9AA92E26AAFB8A0024E2C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +233,7 @@
 				BBC5A33A262824B60000ADDA /* ALDevKit */,
 				BB3C5BC026C9B821000C7B24 /* ALRadioButtons */,
 				BB3C5BCA26C9C4DC000C7B24 /* ALProgressView */,
-				BB3C5BD826C9CDCD000C7B24 /* ALPopup */,
+				BBDBFBF32705B44200EBD725 /* ALPopup */,
 			);
 			productName = "Panda School";
 			productReference = BB3959F324EA71EE00B965F5 /* ALPopup Example.app */;
@@ -530,14 +538,14 @@
 			package = BB3C5BC926C9C4DB000C7B24 /* XCRemoteSwiftPackageReference "ALProgressView" */;
 			productName = ALProgressView;
 		};
-		BB3C5BD826C9CDCD000C7B24 /* ALPopup */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ALPopup;
-		};
 		BBC5A33A262824B60000ADDA /* ALDevKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BBC5A339262824B60000ADDA /* XCRemoteSwiftPackageReference "ALDevKit" */;
 			productName = ALDevKit;
+		};
+		BBDBFBF32705B44200EBD725 /* ALPopup */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ALPopup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -64,7 +64,7 @@ open class ALCardController: ALBaseOverlayController {
     }
     
     open override func dismissAnimation(competion: @escaping () -> Void) {
-        let height = contentView.frame.height
+        let height = contentView.frame.maxY
         ALAnimate.spring(time: 0.6) {
             self.backgroundView.alpha = 0
             self.contentView.transform = .init(translationX: 0, y: height)
