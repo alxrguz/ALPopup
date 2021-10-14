@@ -64,10 +64,16 @@ open class ALCardController: ALBaseOverlayController {
     }
     
     open override func dismissAnimation(competion: @escaping () -> Void) {
-        let frame = contentView.frame
         ALAnimate.spring(time: 0.6) {
             self.backgroundView.alpha = 0
-            self.contentView.transform = .init(translationX: 0, y: UIScreen.main.bounds.height - frame.origin.y)
+            
+            // Instead of trying to get a precise transformation of the contentView offscreen, we transform
+            // it downward by the height of the UIScreen which should cover all cases (such as when the user
+            // swipes the card down off the screen, which would otherwise require a calculation of where the
+            // contentView is on the screen during the swipe and a transformation from there. This is little
+            // more dirty, but gets the job done on all screen sizes.
+            self.contentView.transform = .init(translationX: 0, y: UIScreen.main.bounds.height)
+            
         } completion: {
             competion()
         }
