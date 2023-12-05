@@ -41,7 +41,9 @@ enum ALAnimate {
                        delay: delay,
                        usingSpringWithDamping: damping,
                        initialSpringVelocity: velocity,
-                       options: [.curveEaseInOut, .allowUserInteraction],
+                       options: [.curveEaseInOut,
+                                    .allowUserInteraction,
+                                    .preferredFramesPerSecond60],
                        animations: {
                         animate()
         }, completion: { _ in })

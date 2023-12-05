@@ -29,6 +29,7 @@ open class ALCardController: ALBaseOverlayController {
     private var bottomConstraint: NSLayoutConstraint?
     private var centerConstraint: NSLayoutConstraint?
     private var isPresented = false
+        
     
     // MARK: UIViewController
     
@@ -65,11 +66,14 @@ open class ALCardController: ALBaseOverlayController {
     
     open override func dismissAnimation(competion: @escaping () -> Void) {
         let height = contentView.frame.maxY
+        
+        popupWillClose?()
         ALAnimate.spring(time: 0.6) {
             self.backgroundView.alpha = 0
             self.contentView.transform = .init(translationX: 0, y: height)
-        } completion: {
+        } completion: { [weak self] in
             competion()
+            self?.popupDidClose?()
         }
     }
     
@@ -77,7 +81,7 @@ open class ALCardController: ALBaseOverlayController {
         ALAnimate.spring(time: 0.4, damping: 1) {
             self.backgroundView.alpha = 1
         }
-        
+
         ALAnimate.spring(time: 0.5, damping: 0.85, velocity: 0.8) {
             self.contentView.transform = .identity
         }
@@ -89,7 +93,7 @@ open class ALCardController: ALBaseOverlayController {
 private extension ALCardController {
     func setupView() {
         backgroundView.alpha = 0
-        backgroundView.backgroundColor = UIColor.black.alpha(0.6)
+        backgroundView.backgroundColor = dimmedBackgroudColor ?? .black.alpha(0.4)
         
         contentView.alpha = 0
     }
@@ -98,7 +102,7 @@ private extension ALCardController {
         view.addSubview(backgroundView)
         view.addSubview(contentView)
         
-        let cardOffset: CGFloat = 5
+        let cardOffset: CGFloat = 4
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -122,6 +126,8 @@ private extension ALCardController {
     }
     
     func updateContentCorners() {
+        let cornerRadius = UIScreen.main.displayCornerRadius
+        
         var isRoundDisplay: Bool {
             view.safeAreaInsets.bottom > 0
         }
@@ -131,9 +137,19 @@ private extension ALCardController {
         }
         
         var isIpad: Bool {
-            UIDevice.current.userInterfaceIdiom == .pad
+            let idiom = UIDevice.current.userInterfaceIdiom
+            if #available(iOS 14.0, *) {
+                return idiom == .pad || idiom == .mac
+            } else {
+                return idiom == .pad
+            }
         }
         
-        contentView.cornerRadius =  isIpad ? 12 : (isRoundDisplay ? 36 : 18)
+        let shiftCompensator: CGFloat = 3
+        let iphoneCornerRadius = cornerRadius > 0 ? cornerRadius - shiftCompensator : 18
+        let ipadCornerRadius = cornerRadius > 0 ? cornerRadius : 12
+        
+        contentView.cornerRadius =  isIpad ? ipadCornerRadius : iphoneCornerRadius
+        contentView.layer.masksToBounds = true
     }
 }

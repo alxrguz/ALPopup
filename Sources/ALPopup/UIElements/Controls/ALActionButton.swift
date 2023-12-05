@@ -59,7 +59,7 @@ open class ALActionButton: ALBasicButton {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        makeRoundCorners(radius: roundCorners)
+        roundCorners(radius: roundCorners, continuous: true)
     }
     
     open override func applyDefaultAppearance(with colorise: ALBasicButton.Colorise? = nil) {

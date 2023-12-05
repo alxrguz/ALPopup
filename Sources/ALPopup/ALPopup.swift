@@ -88,7 +88,7 @@ public class ALPopup {
         
         if controller is UINavigationController {
             let offset: CGFloat = isPhone ? 12 : 8
-            controller.additionalSafeAreaInsets = .init(top: offset, left: 0, bottom: 0, right: 0)
+            controller.additionalSafeAreaInsets = .init(top: offset, left: 8, bottom: 0, right: 8)
         }
         
         return vc

@@ -33,6 +33,15 @@ open class ALBaseOverlayController: UIViewController {
     // MARK:  Open Proporties
     
     /**
+     Dimmed card background color
+     */
+    public var dimmedBackgroudColor: UIColor? {
+        didSet {
+            backgroundView.backgroundColor = dimmedBackgroudColor ?? .black.alpha(0.5)
+        }
+    }
+    
+    /**
      Is Close Button show on controller
      */
     public var isEnableCloseButton = true { didSet { closeButton.isHidden = !isEnableCloseButton } }
@@ -58,12 +67,16 @@ open class ALBaseOverlayController: UIViewController {
         }
     }
     
-    /// Rounding corners in superellipse for `contentView`. Gives nicer and more correct rounding, but does not work well with frame animations. Default is `true`
-    public var superellipticRounding = true {
-        didSet {
-            contentView.superellipticRounding = superellipticRounding
-        }
-    }
+    /**
+     Popup started to close
+     */
+    public var popupWillClose: (() -> Void)?
+    
+    
+    /**
+     Popup closed
+     */
+    public var popupDidClose: (() -> Void)?
     
     // MARK:  Private Proporties
 
@@ -91,6 +104,7 @@ open class ALBaseOverlayController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
+        setupView()
         setupConstraints()
     }
     
@@ -182,12 +196,9 @@ extension ALBaseOverlayController: UIGestureRecognizerDelegate {
 
         let translate = panGesture.translation(in: contentView).y
         guard translate > 0 else { return false }
-
-        if -scrollView.contentInset.top >= scrollView.contentOffset.y {
-            return true
-        } else {
-            return false
-        }
+        let scrollTopPosition = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        let scrollTopOffset = -scrollView.contentInset.top
+        return scrollTopOffset >= scrollTopPosition
     }
 }
 
@@ -269,6 +280,15 @@ private extension ALBaseOverlayController {
 // MARK: - Layout Setup
 
 private extension ALBaseOverlayController {
+    func setupView() {
+        if #available(iOS 13.4, *) {
+            closeButton.pointerStyleProvider = { button, effect, shape in
+                let preview = UITargetedPreview(view: button)
+                return UIPointerStyle(effect: .lift(preview))
+            }
+        }
+    }
+    
     func setupConstraints() {
         contentView.addSubview(closeButton)
         

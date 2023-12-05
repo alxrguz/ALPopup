@@ -23,19 +23,21 @@
 import UIKit
 
 extension UIView {
-    func makeRoundCorners(_ corners: UIRectCorner = .allCorners, radius: CGFloat, superelliptic: Bool = false) {
-        if superelliptic {
-            let maskPath = UIBezierPath(
-                roundedRect: bounds,
-                byRoundingCorners: corners,
-                cornerRadii: CGSize(width: radius, height: radius)
-            )
-            let shape = CAShapeLayer()
-            shape.path = maskPath.cgPath
-            layer.mask = shape
-        } else {
-            layer.cornerRadius = radius
-            layer.masksToBounds = true
+    /**
+     ALPopup: Correct rounded corners by current frame.
+     
+     - important:
+     Need call after changed frame. Better leave it in `layoutSubviews` method.
+     
+     - parameter corners: Case of `CACornerMask`
+     - parameter radius: Amount of radius.
+     */
+    public func roundCorners(_ corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], radius: CGFloat, continuous: Bool = false) {
+        layer.cornerRadius = radius
+        layer.maskedCorners = corners
+        
+        if #available(iOS 13, *), continuous {
+            layer.cornerCurve = .continuous
         }
     }
 }

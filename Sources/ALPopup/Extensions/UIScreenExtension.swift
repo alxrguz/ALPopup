@@ -22,42 +22,19 @@
 
 import UIKit
 
-public class ALPopupContentView: UIView {
-    
-    // MARK: - Open Proporties
-    
-    // MARK: - Internal Proporties
-    
-    internal var subviewAdded: ((UIView) -> Void)?
-    
-    internal var cornerRadius: CGFloat = 0 {
-        didSet {
-            layoutSubviews()
-        }
-    }
-    
-    public init() {
-        super.init(frame: .zero)
-        backgroundColor = Source.Color.contentColor
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Life cycle
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        roundCorners(radius: cornerRadius, continuous: true)
-    }
-}
+extension UIScreen {
+    private static let cornerRadiusKey: String = {
+        let components = ["Radius", "Corner", "display", "_"]
+        return components.reversed().joined()
+    }()
 
-extension UIView {
-    internal func subviews<T:UIView>(ofType WhatType: T.Type) -> [T] {
-        var result = self.subviews.compactMap {$0 as? T}
-        for sub in self.subviews {
-            result.append(contentsOf: sub.subviews(ofType: WhatType))
+    /// The corner radius of the display. Uses a private property of `UIScreen`,
+    /// and may report 0 if the API changes.
+    public var displayCornerRadius: CGFloat {
+        guard let cornerRadius = self.value(forKey: Self.cornerRadiusKey) as? CGFloat else {
+            return 0
         }
-        return result
+
+        return cornerRadius
     }
 }

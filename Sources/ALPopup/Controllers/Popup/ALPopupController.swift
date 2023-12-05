@@ -73,12 +73,14 @@ open class ALPopupController: ALBaseOverlayController {
             }
         }()
         
+        popupWillClose?()
         ALAnimate.spring(time: 0.4) {
             self.backgroundView.alpha = 0
             self.contentView.alpha = 0
             self.contentView.transform = .init(translationX: 0, y: translationY)
-        } completion: {
+        } completion: { [weak self] in
             competion()
+            self?.popupDidClose?()
         }
     }
     
@@ -98,8 +100,7 @@ open class ALPopupController: ALBaseOverlayController {
 private extension ALPopupController {
     func setupView() {
         backgroundView.alpha = 0
-        backgroundView.backgroundColor = UIColor.black.alpha(0.6)
-        
+        backgroundView.backgroundColor = dimmedBackgroudColor ?? .black.alpha(0.6)
         contentView.alpha = 0
     }
     
@@ -130,10 +131,7 @@ private extension ALPopupController {
     }
     
     func updateContentCorners() {
-        var isIpad: Bool {
-            UIDevice.current.userInterfaceIdiom == .pad
-        }
-        
         contentView.cornerRadius = 24
+        contentView.layer.masksToBounds = true
     }
 }
